@@ -20,7 +20,7 @@ public class DataWriter : MonoBehaviour
     private bool writeTitle = true;
 
     public void WriteTrajectoryData(string ts, string elapsed, string tag, string target, 
-        string motion,float motionThreshold, Vector3 pos, Vector3 rot, float speed, Vector3 vel, Vector3 velOrg, Vector3 acc, float accStr, Vector3 dir,
+        string motion,float motionThreshold, Vector3 pos, Vector3 rot, float speed, Vector3 vel, Vector3 velOrg, float velMag, Vector3 acc, float accStr, Vector3 dir,
         float angSpeed, Vector3 angVel, Vector3 angAcc, float angAccStr, Vector3 angAxis){
         
         if (writeTitle){
@@ -43,6 +43,7 @@ public class DataWriter : MonoBehaviour
                 .Append("Velocity X (orig)").Append (",")
                 .Append("Velocity Y (orig)").Append (",")
                 .Append("Velocity Z (orig)").Append (",")
+                .Append("Velocity Magnitude").Append (",")
                 .Append("Acceleration X").Append (",")
                 .Append("Acceleration Y").Append (",")
                 .Append("Acceleration Z").Append (",")
@@ -84,6 +85,7 @@ public class DataWriter : MonoBehaviour
                 .Append(velOrg.x).Append (",")
                 .Append(velOrg.y).Append (",")
                 .Append(velOrg.z).Append (",")
+                .Append(velMag).Append (",")
                 .Append(acc.x).Append (",")
                 .Append(acc.y).Append (",")
                 .Append(acc.z).Append (",")
@@ -105,6 +107,7 @@ public class DataWriter : MonoBehaviour
         }
     }
 
+    // Simple trajectory data writer - Not used currently
     public void WriteTrajectoryData(Vector3 p, Vector3 r, Vector3 a, Vector3 aS, float aAvg, float aAvgS, float v, float vS, string ts, string elapsed, string tag, string target){
 
         if (writeTitle){

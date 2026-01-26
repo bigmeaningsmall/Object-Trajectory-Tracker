@@ -38,10 +38,15 @@ public class MotionTracker : MonoBehaviour
     private string timeStamp;
 
     public Vector3 velocity;
+    
     public Vector3 previousPos;
     private float p_speed;
     private Vector3 p_velocity;
+    private float p_velocityMagnitude;
     private Vector3 p_acceleration;
+
+    //public float accelerationStrength;
+
     private float p_accelerationStrength;
     private Vector3 p_direction;
 
@@ -176,7 +181,7 @@ public class MotionTracker : MonoBehaviour
 
             dataWriter.WriteTrajectoryData(timeStamp, elapsedTime.ToString("f2"), motionTag.ToString(), targetTag,
                 inMotion.ToString(), motionThreshold, position, rotation,
-                p_speed, p_velocity, velocity, p_acceleration, p_accelerationStrength, p_direction,
+                p_speed, p_velocity, velocity, p_velocityMagnitude, p_acceleration, p_accelerationStrength, p_direction,
                 p_angularSpeed, p_angularVelocity, p_angularAcceleration, p_angularAccelerationStrength, p_angularAxis);
         }
     }
@@ -207,6 +212,7 @@ public class MotionTracker : MonoBehaviour
     public void GetPhysicsMotion(){
         p_speed = physicsTracker.Speed;
         p_velocity = physicsTracker.Velocity;
+        p_velocityMagnitude = p_velocity.magnitude;
         p_acceleration = physicsTracker.Acceleration;
         p_accelerationStrength = physicsTracker.AccelerationStrength;
         p_direction = physicsTracker.Direction;
@@ -225,6 +231,7 @@ public class MotionTracker : MonoBehaviour
 
         motionData.speed = p_speed;
         motionData.velocity = p_velocity;
+        motionData.velocityMagnitude = p_velocityMagnitude;
         motionData.acceleration = p_acceleration;
         motionData.accelerationStrength = p_accelerationStrength;
         motionData.direction = p_direction;

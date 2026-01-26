@@ -23,6 +23,7 @@ public class MotionDataFormat
 	[Space(5)]
 	public float speed;
 	public Vector3 velocity;
+	public float velocityMagnitude;
 	public Vector3 acceleration;
 	public float accelerationStrength;
 	public Vector3 direction;
@@ -37,7 +38,7 @@ public class MotionDataFormat
 
 	public MotionDataFormat(
 		string tag, Vector3 position, Vector3 rotation, 
-		float speed, Vector3 velocity, Vector3 acceleration, float accelerationStrength, Vector3 direction,
+		float speed, Vector3 velocity, float velocityMagnitude, Vector3 acceleration, float accelerationStrength, Vector3 direction,
 		float angularSpeed, Vector3 angularVelocity, Vector3 angularAcceleration, float angularAccelerationStrength, Vector3 angularAxis)
 	{
 		this.tag = tag;
@@ -46,6 +47,7 @@ public class MotionDataFormat
 
 		this.speed = speed;
 		this.velocity = velocity;
+		this.velocityMagnitude = velocityMagnitude;
 		this.acceleration = acceleration;
 		this.accelerationStrength = accelerationStrength;
 		this.direction = direction;
