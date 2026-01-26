@@ -19,6 +19,7 @@ public class DataWriter : MonoBehaviour
 
     private bool writeTitle = true;
 
+    //todo add velocity smoothed data 
     public void WriteTrajectoryData(string ts, string elapsed, string tag, string target, 
         string motion,float motionThreshold, Vector3 pos, Vector3 rot, float speed, Vector3 vel, Vector3 velOrg, float velMag, Vector3 acc, float accStr, Vector3 dir,
         float angSpeed, Vector3 angVel, Vector3 angAcc, float angAccStr, Vector3 angAxis){
