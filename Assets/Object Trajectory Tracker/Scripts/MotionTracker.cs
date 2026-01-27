@@ -164,6 +164,11 @@ public class MotionTracker : MonoBehaviour
 
     void LateUpdate(){
         previousPos = motionObject.position;
+
+        if (MotionEventManager.OnMotionEvent !=null){
+            MotionEventManager.OnMotionEvent(motionTag, motionData);
+        }
+        
     }
 
     // Fixed update time step should be set in unity preferences
