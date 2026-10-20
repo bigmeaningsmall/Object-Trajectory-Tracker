@@ -9,6 +9,7 @@
 
     public enum MotionTag{
         Null,
+        GenericObject,
         Head,
         LeftHand,
         RightHand,

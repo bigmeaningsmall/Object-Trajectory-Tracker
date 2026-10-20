@@ -720,7 +720,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eb4483dd4d5cf46b8b574e61ce0fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MotionDataReceiverExample
-  motionTag: 8
+  active: 0
+  motionTag: 1
+  motionData:
+    tag: 
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
+    speed: 0
+    velocity: {x: 0, y: 0, z: 0}
+    velocityMagnitude: 0
+    acceleration: {x: 0, y: 0, z: 0}
+    accelerationStrength: 0
+    direction: {x: 0, y: 0, z: 0}
+    angularSpeed: 0
+    angularVelocity: {x: 0, y: 0, z: 0}
+    angularAcceleration: {x: 0, y: 0, z: 0}
+    angularAccelerationStrength: 0
+    angularAxis: {x: 0, y: 0, z: 0}
 --- !u!4 &1948202968
 Transform:
   m_ObjectHideFlags: 0
@@ -793,7 +809,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5182352326804544293, guid: bcf546d9adf6d1d42b0ec2429d72c2e9, type: 3}
       propertyPath: motionTag
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5182352326804544313, guid: bcf546d9adf6d1d42b0ec2429d72c2e9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

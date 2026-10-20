@@ -16,15 +16,18 @@ public class MotionTracker : MonoBehaviour
     private DataWriter dataWriter;
 
     public bool recordEnabled; //set in inspector 
+    [Space(10)] public bool incrementFileNumber = true;
+    
     [Space(10)]
     public Transform motionObject;
 
     [Space(10)]
     public MotionTag motionTag;
-    public string sessionTag = "Session Name Here";
+    public string targetTag = "Tracking Target Here";
     public string fileName = "Name Here";
-    private string dataID;
-    private string targetTag = "Walking";
+    public int fileNumber = 1;
+    public string dataID = "ID Here";
+
     // public string id;
 
     private bool recordData = false;
@@ -70,8 +73,21 @@ public class MotionTracker : MonoBehaviour
         MotionTrackerControl.OnRecordAction -= MotionTrackerControlOnRecordAction;
     }
     private void MotionTrackerControlOnRecordAction(string recordAction){
-        if (recordAction == "Start"){ RecordStart( "ID_Here");}
-        if(recordAction=="Stop"){ RecordStop("ID_Here");}
+        if (recordAction == "Start")
+        {
+            RecordStart( fileNumber.ToString());
+            
+            if (incrementFileNumber)
+            {
+                fileNumber++;
+            }
+        }
+
+        if (recordAction == "Stop")
+        {
+            RecordStop(fileNumber.ToString());
+            
+        }
     }
 
     #endregion
@@ -83,20 +99,32 @@ public class MotionTracker : MonoBehaviour
             motionObject = this.transform;
         }
         dataWriter = new DataWriter();
-        //targetTag = "";
     }
+
     void Start(){
         physicsTracker = gameObject.GetComponent<PhysicsData>().m_MotionData;
     }
-    private string GenerateFileName(){
-        string n = "";
-        if (motionTag == MotionTag.Null){
-            n = transform.name + "_" + sessionTag + "_" + "Block" + "__AddSequeneceNumberOrIterationHere"; 
+
+    private string GenerateDataID(string id){
+        string prefix = motionTag == MotionTag.Null ? targetTag : motionTag.ToString();
+
+        var parts = new List<string>();
+        if (!string.IsNullOrWhiteSpace(prefix))
+        {
+            parts.Add(prefix);
         }
-        else{
-            n = motionTag.ToString() + "_" + sessionTag + "_" + "Block" + "__AddSequeneceNumberOrIterationHere"; 
+        if (!string.IsNullOrWhiteSpace(fileName))
+        {
+            parts.Add(fileName); 
         }
-        return n;
+
+        if (!string.IsNullOrWhiteSpace(id))
+        {
+            parts.Add(id);
+        }
+            
+
+        return string.Join("_", parts);
     }
 
     #endregion
@@ -104,42 +132,27 @@ public class MotionTracker : MonoBehaviour
     #region Control Functions
 
     public void RecordStart(string id){
-        if (recordEnabled){
-            Debug.Log("---- Start Trajectory Motion Capture : " + fileName);
-            dataWriter = new DataWriter();
-            fileName = GenerateFileName();
-            dataID = fileName + "_" + id;
-            elapsedTime = 0;
-            recordData = true;
-        }
-        else{
-            Debug.Log("---- Stop Trajectory Motion Capture : " + fileName);
-            recordData = false;
-            dataWriter.WriteData(dataID);
-        }
+        if (!recordEnabled) return;
+
+        dataWriter = new DataWriter();
+        dataID = GenerateDataID(id);
+        elapsedTime = 0;
+        recordData = true;
+        Debug.Log("---- Start Trajectory Motion Capture : " + dataID);
     }
+
     public void RecordStop(string id){
-        if (recordEnabled){
-            Debug.Log("---- Stop Trajectory Motion Capture : " + fileName);
-            recordData = false;
-            dataWriter.WriteData(dataID);
-        }
+        if (!recordEnabled || !recordData) return;
+
+        recordData = false;
+        dataWriter.WriteData(dataID);
+        Debug.Log("---- Stop Trajectory Motion Capture : " + dataID);
     }
-    //Call this function to start/stop recording
-    
-    private void SetMotionTrackingRecord(bool t, string id){
-        recordData = t;
-        if (!recordData && recordEnabled){
-            Debug.Log("---- Start Trajectory Motion Capture : " + fileName);
-            dataWriter = new DataWriter();
-            fileName = GenerateFileName();
-            dataID = fileName + "_" + id;
-            elapsedTime = 0;
-        }
-        else{
-            Debug.Log("---- Stop Trajectory Motion Capture : " + fileName);
-            dataWriter.WriteData(dataID);
-        }
+
+    // Call this to start (true) or stop (false) recording
+    private void SetMotionTrackingRecord(bool start, string id){
+        if (start) RecordStart(id);
+        else       RecordStop(id);
     }
 
     #endregion
@@ -230,7 +243,7 @@ public class MotionTracker : MonoBehaviour
     }
     private void FormatMotionData()
     {
-        motionData.tag = tag;
+        motionData.tag = ((Component)this).tag;
         motionData.position = position;
         motionData.rotation = rotation;
 
