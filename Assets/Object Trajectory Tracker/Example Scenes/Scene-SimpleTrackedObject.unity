@@ -808,7 +808,19 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5182352326804544293, guid: bcf546d9adf6d1d42b0ec2429d72c2e9, type: 3}
+      propertyPath: fileName
+      value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182352326804544293, guid: bcf546d9adf6d1d42b0ec2429d72c2e9, type: 3}
       propertyPath: motionTag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182352326804544293, guid: bcf546d9adf6d1d42b0ec2429d72c2e9, type: 3}
+      propertyPath: targetTag
+      value: tag
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182352326804544293, guid: bcf546d9adf6d1d42b0ec2429d72c2e9, type: 3}
+      propertyPath: fileNumber
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5182352326804544313, guid: bcf546d9adf6d1d42b0ec2429d72c2e9, type: 3}
